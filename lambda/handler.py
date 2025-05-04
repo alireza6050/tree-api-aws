@@ -1,18 +1,29 @@
 import boto3
 import json
 import os
+import redis
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
 
+REDIS_HOST = os.environ['REDIS_HOST']
+
+redis_client = redis.Redis(host=REDIS_HOST, port=6379, decode_responses=True)
+
+
 def lambda_handler(event, context):
     method = event.get("requestContext", {}).get("http", {}).get("method")
     if method == "GET":
+        cached = redis_client.get("tree")
+        if cached:
+            return {"statusCode": 200, "body": cached}
         response = table.scan()
         nodes = response.get('Items', [])
+        tree = json.dumps(build_tree(nodes))
+        redis_client.set("tree", tree, ex=300)
         return {
             "statusCode": 200,
-            "body": json.dumps(build_tree(nodes))
+            "body": json.dumps(tree)
         }
 
     elif method == 'POST':
@@ -23,6 +34,7 @@ def lambda_handler(event, context):
             "parentId": str(body['parentId']),
         }
         table.put_item(Item=item)
+        redis_client.delete("tree")
         return {
             "statusCode": 200,
             "body": json.dumps({"message": "Node created", "item": item})

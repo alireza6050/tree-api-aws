@@ -42,6 +42,8 @@ lambda/urllib3/
 lambda/jmespath/
 lambda/six.py
 lambda/six.pyc
+lambda/async_timeout/
+lambda/redis/
 
 # Logs and temporary files
 *.log
