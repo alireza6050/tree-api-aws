@@ -1,0 +1,47 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+.env/
+env/
+venv/
+env_treeapi/
+
+# Lambda packages and local builds
+lambda.zip
+lambda/bin/
+lambda/lib/
+lambda/*.dist-info/
+lambda/*.egg-info/
+lambda/*.pyc
+lambda/__pycache__/
+lambda/*.pyo
+lambda/*.egg
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# VSCode settings
+.vscode/
+
+# OS & system files
+.DS_Store
+Thumbs.db
+
+# Python dependency folders
+lambda/boto3/
+lambda/botocore/
+lambda/dateutil/
+lambda/s3transfer/
+lambda/urllib3/
+lambda/jmespath/
+lambda/six.py
+lambda/six.pyc
+
+# Logs and temporary files
+*.log

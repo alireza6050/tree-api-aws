@@ -6,7 +6,8 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
 
 def lambda_handler(event, context):
-    if event['httpMethod'] == 'GET':
+    method = event.get("requestContext", {}).get("http", {}).get("method")
+    if method == "GET":
         response = table.scan()
         nodes = response.get('Items', [])
         return {
@@ -14,7 +15,7 @@ def lambda_handler(event, context):
             "body": json.dumps(build_tree(nodes))
         }
 
-    elif event['httpMethod'] == 'POST':
+    elif method == 'POST':
         body = json.loads(event['body'])
         item = {
             "id": str(hash(body['label'] + str(body['parentId']))),

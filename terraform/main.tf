@@ -1,5 +1,6 @@
 provider "aws" {
   region = var.aws_region
+  profile = "pratice-ali"
 }
 
 resource "aws_iam_role" "lambda_exec_role" {
