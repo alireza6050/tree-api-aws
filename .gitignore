@@ -10,15 +10,15 @@ venv/
 env_treeapi/
 
 # Lambda packages and local builds
-lambda.zip
-lambda/bin/
-lambda/lib/
-lambda/*.dist-info/
-lambda/*.egg-info/
-lambda/*.pyc
-lambda/__pycache__/
-lambda/*.pyo
-lambda/*.egg
+tree_lambda.zip
+tree_lambda/bin/
+tree_lambda/lib/
+tree_lambda/*.dist-info/
+tree_lambda/*.egg-info/
+tree_lambda/*.pyc
+tree_lambda/__pycache__/
+tree_lambda/*.pyo
+tree_lambda/*.egg
 
 # Terraform state files
 *.tfstate
@@ -34,16 +34,16 @@ lambda/*.egg
 Thumbs.db
 
 # Python dependency folders
-lambda/boto3/
-lambda/botocore/
-lambda/dateutil/
-lambda/s3transfer/
-lambda/urllib3/
-lambda/jmespath/
-lambda/six.py
-lambda/six.pyc
-lambda/async_timeout/
-lambda/redis/
+tree_lambda/boto3/
+tree_lambda/botocore/
+tree_lambda/dateutil/
+tree_lambda/s3transfer/
+tree_lambda/urllib3/
+tree_lambda/jmespath/
+tree_lambda/six.py
+tree_lambda/six.pyc
+tree_lambda/async_timeout/
+tree_lambda/redis/
 
 # Logs and temporary files
 *.log

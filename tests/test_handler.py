@@ -1,9 +1,13 @@
-# tests/test_handler.py
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import json
 import pytest
-from lambda import handler
+from tree_lambda import handler
 
 from unittest.mock import patch, MagicMock
+
 
 @pytest.fixture
 def sample_event_get():
@@ -20,10 +24,14 @@ def sample_event_post():
             "parentId": None
         })
     }
+@patch("tree_lambda.handler.get_redis_client")
+@patch("tree_lambda.handler.get_table")
+def test_get_cached_tree(mock_table_fn, mock_redis_fn, sample_event_get):
+    mock_table = MagicMock()
+    mock_redis = MagicMock()
+    mock_table_fn.return_value = mock_table
+    mock_redis_fn.return_value = mock_redis
 
-@patch("lambda.handler.redis_client")
-@patch("lambda.handler.table")
-def test_get_cached_tree(mock_table, mock_redis, sample_event_get):
     # Redis has the cached tree
     mock_redis.get.return_value = json.dumps([{"id": "1", "label": "root", "children": []}])
 
@@ -32,11 +40,17 @@ def test_get_cached_tree(mock_table, mock_redis, sample_event_get):
     assert response["statusCode"] == 200
     assert json.loads(response["body"])[0]["label"] == "root"
     mock_redis.get.assert_called_with("tree")
-    mock_table.scan.assert_not_called()  # should not hit DynamoDB if cached
+    mock_table.scan.assert_not_called()
 
-@patch("lambda.handler.redis_client")
-@patch("lambda.handler.table")
-def test_post_and_invalidate_cache(mock_table, mock_redis, sample_event_post):
+
+@patch("tree_lambda.handler.get_redis_client")
+@patch("tree_lambda.handler.get_table")
+def test_post_and_invalidate_cache(mock_table_fn, mock_redis_fn, sample_event_post):
+    mock_table = MagicMock()
+    mock_redis = MagicMock()
+    mock_table_fn.return_value = mock_table
+    mock_redis_fn.return_value = mock_redis
+
     response = handler.lambda_handler(sample_event_post, None)
 
     assert response["statusCode"] == 200
