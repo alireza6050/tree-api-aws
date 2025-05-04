@@ -1,15 +1,15 @@
-# 🌳 Tree API - Serverless Tree Data Structure Manager
+#  Tree API - Serverless Tree Data Structure Manager
 
 This is a production-ready serverless API for managing tree data structures using AWS Lambda, DynamoDB, Redis (ElastiCache), and API Gateway. It supports node creation and fetching entire trees with caching for performance.
 
 ---
 
-## 📌 API Endpoints
+##  API Endpoints
 
 ### `GET /api/tree`
 Fetches the full tree structure.
 
-#### ✅ Example response:
+####  Example response:
 ```json
 [
   {
@@ -31,7 +31,7 @@ Fetches the full tree structure.
 ### `POST /api/tree`
 Adds a new node under a specified parent.
 
-#### 🔻 Request body:
+####  Request body:
 ```json
 {
   "label": "New Node",
@@ -39,7 +39,7 @@ Adds a new node under a specified parent.
 }
 ```
 
-#### ✅ Example response:
+####  Example response:
 ```json
 {
   "message": "Node created",
@@ -53,9 +53,9 @@ Adds a new node under a specified parent.
 
 ---
 
-## ⚙️ Deployment Instructions
+##  Deployment Instructions
 
-### 🔧 Prerequisites
+###  Prerequisites
 - Terraform
 - AWS account with permissions to create:
   - Lambda Functions
@@ -79,15 +79,15 @@ Terraform will prompt for confirmation and then provision all required resources
 
 ---
 
-## 🧪 Running Unit Tests
+##  Running Unit Tests
 
-### 🔧 Setup
+###  Setup
 Make sure you have Python 3.10+ and `pip` installed. Then install test dependencies:
 ```bash
 pip install pytest boto3 redis
 ```
 
-### ▶️ Run Tests
+###  Run Tests
 ```bash
 pytest tests/
 ```
@@ -96,7 +96,7 @@ Unit tests mock out AWS and Redis dependencies using `unittest.mock`.
 
 ---
 
-## 🗂 Project Structure
+## Project Structure
 ```
 .
 ├── lambda/
@@ -109,14 +109,3 @@ Unit tests mock out AWS and Redis dependencies using `unittest.mock`.
 ├── lambda.zip                 # Zipped Lambda for deployment
 └── README.md
 ```
-
----
-
-## 🔒 Notes on Portability
-
-This project does not hard-code any AWS account-specific values. It uses:
-- AWS region and profile as Terraform variables
-- Dynamic resource names
-- Randomized Lambda permission statements (to prevent conflicts)
-
-✅ You can safely reuse this Terraform config in other AWS accounts.
