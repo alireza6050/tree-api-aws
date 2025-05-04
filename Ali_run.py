@@ -3,7 +3,7 @@ import time
 import json
 import random
 
-API_URL = "https://upm5h5b3p9.execute-api.us-east-1.amazonaws.com/api/tree?mode=bulk"
+API_URL = "https://pg5vtzqdf6.execute-api.us-east-1.amazonaws.com/api/tree?mode=bulk"
 
 def generate_nodes(count):
     nodes = []
@@ -18,7 +18,7 @@ def generate_nodes(count):
 
 if __name__ == "__main__":
     print("Generating data...")
-    data = generate_nodes(5)
+    data = generate_nodes(1)
 
     print("Sending bulk insert...")
     start = time.time()
